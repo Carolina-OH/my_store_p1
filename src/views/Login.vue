@@ -10,7 +10,7 @@
               <!-- Error -->
               <span v-if="formHasErrors" class="has-text-danger">
                 <i class="mdi mdi-alert"></i>
-                Usuario o Contraseña incorrectos
+                Usuario o Contraseña incorrectos, intente nuevamente.
               </span>
             </div>
             <div class="field">
@@ -74,9 +74,10 @@ export default {
         .then(response => {
           let user = response.data
           this.$store.dispatch('updateUser', user)
-          this.$router.push('/')
+          this.$router.push('/').catch(()=>{})
         })
         .catch(error => {
+          this.formHasErrors = true
           alert(error)
         })
       }
